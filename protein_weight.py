@@ -5,33 +5,34 @@ def seq_weight(sequence):
     '''
     Converts sequence to molecular weight value
     '''
-    # Dict in KDa from https://www.sciencegateway.org/tools/proteinmw.htm
-    aa_weight = {'A': 0.09,
-                 'R': 0.17,
-                 'N': 0.13,
-                 'D': 0.13,
-                 'C': 0.12,
-                 'Q': 0.15,
-                 'E': 0.15,
-                 'G': 0.08,
-                 'H': 0.16,
-                 'I': 0.13,
-                 'L': 0.13,
-                 'K': 0.15,
-                 'M': 0.15,
-                 'F': 0.17,
-                 'P': 0.12,
-                 'S': 0.11,
-                 'T': 0.12,
-                 'W': 0.2,
-                 'Y': 0.18,
-                 'V': 0.12,
+    # Dict in KDa from https://web.expasy.org/protscale/pscale/Molecularweight.html
+    aa_weight = {'A': 89.000,
+                 'R': 174.000,
+                 'N': 132.000,
+                 'D': 133.000,
+                 'C': 121.000,
+                 'Q': 146.000,
+                 'E': 147.000,
+                 'G': 75.000,
+                 'H': 155.000,
+                 'I': 131.000,
+                 'L': 131.000,
+                 'K': 146.000,
+                 'M': 149.000,
+                 'F': 165.000,
+                 'P': 115.000,
+                 'S': 105.000 ,
+                 'T': 119.000,
+                 'W': 204.000,
+                 'Y': 181.000,
+                 'V': 117.000,
                  'X': "X"}
     sequence_list=list(sequence)
     weights=[]
     for aa in sequence_list:
         weights.append(aa_weight[aa])
-    return(format(sum(weights), ".2f"))
+    kilodaltons=format((sum(weights)/1000), ".2f")
+    return(kilodaltons)
 
 def parse_fasta(fasta_format):
     '''
@@ -51,6 +52,8 @@ def process_id(uniprot_id):
     Downloads the fasta from UniProt
     '''
     uniprot_id=uniprot_id.strip("\n")
+    uniprot_id=uniprot_id.strip(" ")
+    uniprot_id=uniprot_id.strip("\t")
     download_output=download_id(uniprot_id)
 
     fasta=parse_fasta(download_output)
