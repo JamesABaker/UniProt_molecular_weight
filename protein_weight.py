@@ -31,7 +31,7 @@ def seq_weight(sequence):
     weights=[]
     for aa in sequence_list:
         weights.append(aa_weight[aa])
-    return(sum(weights))
+    return(format(sum(weights), ".2f"))
 
 def parse_fasta(fasta_format):
     '''
